@@ -5,22 +5,33 @@ import Chart from './Chart';
 // import { getData } from "./utils";
 import {BtfxWS} from "../services/BtfxWS/BtfxWS";
 
+function parseData(data) {
+
+  return data.slice(0).reverse().map((candle) => {
+    return {
+      date: new Date(candle[0]),
+      open: candle[1],
+      close: candle[2],
+      high: candle[3],
+      low: candle[4],
+      volume: candle[5],
+    };
+  });
+
+}
 
 class App extends React.Component {
 
   componentDidMount() {
-    // getData().then((data) => {
-    //   this.setState({ data });
-    // });
 
-    (new BtfxWS())
+    new BtfxWS()
       .defineChannel('candles', '1h', 'tBTCUSD')
       .defineMessage((event) => {
         console.log('>>> GET: ', event.data);
-        this.setState({data: event.data});
+        // this.setState({data: event.data});
       })
       .defineWSInfo((info) => {
-        console.log(`>>> I GOT INFO`, info);
+        this.setState({data: parseData(info.snapshot[1])});
       })
       .subscribe();
 

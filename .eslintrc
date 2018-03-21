@@ -35,6 +35,7 @@
     "no-trailing-spaces": "off",
     "padded-blocks": "off",
     "comma-dangle": "off",
-    "brace-style": "off"
+    "brace-style": "off",
+    "no-console": "off"
   }
 }
