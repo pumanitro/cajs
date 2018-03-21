@@ -30,6 +30,11 @@
     }],
     "no-class-assign": "off",
     "no-param-reassign": "off",
-    "import/prefer-default-export": "off"
+    "import/prefer-default-export": "off",
+    "object-curly-spacing": "off",
+    "no-trailing-spaces": "off",
+    "padded-blocks": "off",
+    "comma-dangle": "off",
+    "brace-style": "off"
   }
 }
