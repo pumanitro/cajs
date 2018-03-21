@@ -2,7 +2,7 @@
 
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com)
 
-![What I did](/moveOn.png "Logo Title Text 1")
+![What I did](/moveOn.png "Actual preview")
 
 Todo:
 
