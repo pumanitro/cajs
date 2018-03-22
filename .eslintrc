@@ -36,6 +36,12 @@
     "padded-blocks": "off",
     "comma-dangle": "off",
     "brace-style": "off",
-    "no-console": "off"
+    "no-console": "off",
+    "indent": ["error", 4],
+    "react/jsx-indent": ["error", 4],
+    "react/jsx-indent-props": ["error", 4],
+    "max-len": ["error", 250],
+    "react/prop-types": "off",
+    "react/no-string-refs": "off"
   }
 }
