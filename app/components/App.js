@@ -25,7 +25,24 @@ class App extends React.Component {
                 console.log('>>> GET: ', parsedData);
 
                 if (parsedData[1] !== "hb") {
-                    self.setState({ data: self.state.data.concat([parseBtfxCandle(parsedData[1])])});
+
+                    // Update chart or add new data to chart:
+
+                    const newCandle = parseBtfxCandle(parsedData[1]);
+                    const updatedData = [...self.state.data];
+
+                    if (self.state.data[self.state.data.length - 1].date.getTime() === newCandle.date.getTime()) {
+                        updatedData[updatedData.length - 1] = newCandle;
+                        self.setState({ data: updatedData});
+                    }
+                    else if (self.state.data[self.state.data.length - 2].date.getTime() === newCandle.date.getTime()) {
+                        updatedData[updatedData.length - 2] = newCandle;
+                        self.setState({ data: updatedData});
+                    }
+                    else {
+                        self.setState({ data: self.state.data.concat([newCandle])});
+                    }
+
                 }
             })
             .defineWSInfo((info) => {

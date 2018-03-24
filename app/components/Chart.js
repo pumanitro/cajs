@@ -11,8 +11,6 @@ import { discontinuousTimeScaleProvider } from "react-stockcharts/lib/scale";
 import { fitWidth } from "react-stockcharts/lib/helper";
 import { last } from "react-stockcharts/lib/utils";
 
-// import updatingDataWrapper from "./updatingDataWrapper";
-
 class CandleStickStockScaleChart extends React.Component {
     render() {
         const { type, data: initialData, width, ratio } = this.props;
@@ -68,8 +66,5 @@ CandleStickStockScaleChart.defaultProps = {
 
 CandleStickStockScaleChart = fitWidth(CandleStickStockScaleChart);
 
-// const CandleStickChartWithUpdatingData = updatingDataWrapper(CandleStickStockScaleChart);
-
-// export default CandleStickChartWithUpdatingData;
 export default CandleStickStockScaleChart;
 
