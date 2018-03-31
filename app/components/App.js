@@ -1,20 +1,16 @@
+import {connect} from "react-redux";
 import React from 'react';
 import Chart from './Chart';
 import {BtfxWS} from "../services/BtfxWS/BtfxWS";
 import {parseBtfxCandle, parseCandles} from "../services/BtfxWS/BtfxUtils";
+import {makeAction} from "../utils/actionCreator";
+import ActionTypes from "../actions/actionTypes";
 
 class App extends React.Component {
 
-    constructor(props) {
-        super(props);
-        this.state = {
-            data: null
-        };
-    }
-
     componentDidMount() {
 
-        const self = this;
+        const {candles} = this.props.bitfinex;
 
         new BtfxWS()
             .defineChannel('candles', '1h', 'tBTCUSD')
@@ -29,36 +25,46 @@ class App extends React.Component {
                     // Update chart or add new data to chart:
 
                     const newCandle = parseBtfxCandle(parsedData[1]);
-                    const updatedData = [...self.state.data];
+                    const updatedData = [...candles];
 
-                    if (self.state.data[self.state.data.length - 1].date.getTime() === newCandle.date.getTime()) {
+                    if (candles[candles.length - 1].date.getTime() === newCandle.date.getTime()) {
                         updatedData[updatedData.length - 1] = newCandle;
-                        self.setState({ data: updatedData});
+                        this.props.changeBitfinexCandles(updatedData);
                     }
-                    else if (self.state.data[self.state.data.length - 2].date.getTime() === newCandle.date.getTime()) {
+                    else if (candles[candles.length - 2].date.getTime() === newCandle.date.getTime()) {
                         updatedData[updatedData.length - 2] = newCandle;
-                        self.setState({ data: updatedData});
+                        this.props.changeBitfinexCandles(updatedData);
                     }
                     else {
-                        self.setState({ data: self.state.data.concat([newCandle])});
+                        this.props.changeBitfinexCandles(candles.concat([newCandle]));
                     }
 
                 }
             })
             .defineWSInfo((info) => {
-                self.setState({data: parseCandles(info.snapshot[1])});
+                this.props.changeBitfinexCandles(parseCandles(info.snapshot[1]));
             })
             .subscribe();
     }
 
     render() {
-        if (this.state.data == null) {
+        if (this.props.bitfinex.candles == null) {
             return <div>Loading...</div>;
         }
         return (
-            <Chart type="svg" data={this.state.data} />
+            <Chart type="svg" data={this.props.bitfinex.candles} />
         );
     }
 }
 
-export default App;
+const mapStoreToProps = (store) => {
+    return {
+        bitfinex: store.bitfinex
+    };
+};
+
+const mapDispatchToProps = {
+    changeBitfinexCandles: makeAction(ActionTypes.BITFINEX.CHANGE_BITFINEX_CANDLES)
+};
+
+export default connect(mapStoreToProps, mapDispatchToProps)(App);
