@@ -9,6 +9,6 @@ export function parseBtfxCandle(candle) {
     };
 }
 
-export function parseData(data) {
-    return data.slice(0).reverse().map(candle => parseBtfxCandle(candle));
+export function parseCandles(candles) {
+    return candles.slice(0).reverse().map(candle => parseBtfxCandle(candle));
 }

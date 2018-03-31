@@ -12,6 +12,13 @@ import { fitWidth } from "react-stockcharts/lib/helper";
 import { last } from "react-stockcharts/lib/utils";
 
 class CandleStickStockScaleChart extends React.Component {
+
+    takeCandlesPacket = () => {
+
+        console.warn('Should take 1000 candles for');
+
+    };
+
     render() {
         const { type, data: initialData, width, ratio } = this.props;
 
@@ -35,6 +42,7 @@ class CandleStickStockScaleChart extends React.Component {
                 width={width}
                 margin={{ left: 50, right: 50, top: 10, bottom: 30 }}
                 type={type}
+                onLoadMore={this.takeCandlesPacket}
                 seriesName="MSFT"
                 data={data}
                 xScale={xScale}

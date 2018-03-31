@@ -1,7 +1,7 @@
 import React from 'react';
 import Chart from './Chart';
 import {BtfxWS} from "../services/BtfxWS/BtfxWS";
-import {parseBtfxCandle, parseData} from "../services/BtfxWS/BtfxUtils";
+import {parseBtfxCandle, parseCandles} from "../services/BtfxWS/BtfxUtils";
 
 class App extends React.Component {
 
@@ -46,7 +46,7 @@ class App extends React.Component {
                 }
             })
             .defineWSInfo((info) => {
-                self.setState({data: parseData(info.snapshot[1])});
+                self.setState({data: parseCandles(info.snapshot[1])});
             })
             .subscribe();
     }
