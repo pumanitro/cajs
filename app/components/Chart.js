@@ -10,10 +10,13 @@ import { XAxis, YAxis } from "react-stockcharts/lib/axes";
 import { discontinuousTimeScaleProvider } from "react-stockcharts/lib/scale";
 import { fitWidth } from "react-stockcharts/lib/helper";
 import { last } from "react-stockcharts/lib/utils";
+// import BtfxRest from "../services/BtfxRest";
 
 class CandleStickStockScaleChart extends React.Component {
 
     takeCandlesPacket = () => {
+
+        // BtfxRest.getCandles(timeFrame, symbol, dateStart, dateEnd);
 
         console.warn('Should take 1000 candles for');
         console.warn('https://api.bitfinex.com/v2/candles/trade:1D:tBTCUSD/hist?start=1388534400000&end=1420070400000&limit=1000');

@@ -1,7 +1,7 @@
 import axios from 'axios';
 import {dateToTimeStamp} from "./BtfxUtils";
 
-export class BtfxRest {
+class BtfxRest {
 
     REST_URL = 'https://api.bitfinex.com/v2/';
     MAX_CANDLES_AMOUNT = 1000;
@@ -20,3 +20,5 @@ export class BtfxRest {
             });
     }
 }
+
+export default new BtfxRest();
