@@ -10,45 +10,44 @@ class App extends React.Component {
 
     componentDidMount() {
 
-        const {candles} = this.props.bitfinex;
-
-        new BtfxWS()
+        (new BtfxWS())
             .defineChannel('candles', '1h', 'tBTCUSD')
-            .defineMessage((event) => {
-
-                const parsedData = JSON.parse(event.data);
-
-                console.log('>>> GET: ', parsedData);
-
-                if (parsedData[1] !== "hb") {
-
-                    // Update chart or add new data to chart:
-
-                    const newCandle = parseBtfxCandle(parsedData[1]);
-                    const updatedData = [...candles];
-
-                    if (candles[candles.length - 1].date.getTime() === newCandle.date.getTime()) {
-                        updatedData[updatedData.length - 1] = newCandle;
-                        this.props.changeBitfinexCandles(updatedData);
-                    }
-                    else if (candles[candles.length - 2].date.getTime() === newCandle.date.getTime()) {
-                        updatedData[updatedData.length - 2] = newCandle;
-                        this.props.changeBitfinexCandles(updatedData);
-                    }
-                    else {
-                        this.props.changeBitfinexCandles(candles.concat([newCandle]));
-                    }
-
-                }
-            })
             .defineWSInfo((info) => {
                 this.props.changeBitfinexCandles(parseCandles(info.snapshot[1]));
+            })
+            .defineMessage((event) => {
+
+                const messageData = JSON.parse(event.data);
+
+                if (messageData[1] !== "hb") {
+                    this.changeCandlesOnMessage(messageData, this.props.bitfinex.candles);
+                }
             })
             .subscribe();
     }
 
+    changeCandlesOnMessage = (messageData, candles) => {
+
+        // Update chart or add new data to chart:
+        const newCandle = parseBtfxCandle(messageData[1]);
+        const updatedData = [...candles];
+
+        if (candles[candles.length - 1].date.getTime() === newCandle.date.getTime()) {
+            updatedData[updatedData.length - 1] = newCandle;
+            this.props.changeBitfinexCandles(updatedData);
+        }
+        else if (candles[candles.length - 2].date.getTime() === newCandle.date.getTime()) {
+            updatedData[updatedData.length - 2] = newCandle;
+            this.props.changeBitfinexCandles(updatedData);
+        }
+        else {
+            this.props.changeBitfinexCandles(candles.concat([newCandle]));
+        }
+
+    };
+
     render() {
-        if (this.props.bitfinex.candles == null) {
+        if (this.props.bitfinex.candles.length === 0) {
             return <div>Loading...</div>;
         }
         return (
@@ -57,9 +56,9 @@ class App extends React.Component {
     }
 }
 
-const mapStoreToProps = (store) => {
+const mapStateToProps = (state) => {
     return {
-        bitfinex: store.bitfinex
+        bitfinex: state.bitfinex
     };
 };
 
@@ -67,4 +66,4 @@ const mapDispatchToProps = {
     changeBitfinexCandles: makeAction(ActionTypes.BITFINEX.CHANGE_BITFINEX_CANDLES)
 };
 
-export default connect(mapStoreToProps, mapDispatchToProps)(App);
+export default connect(mapStateToProps, mapDispatchToProps)(App);

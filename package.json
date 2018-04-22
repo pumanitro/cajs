@@ -14,7 +14,7 @@
     "precommit": "cross-env npm run lint",
     "prepush": "cross-env npm run lint"
   },
-  "author": "Kliment Petrov <kleopetroff@gmail.com>",
+  "author": "Patryk Janik <patrykjanik1710@gmail.com>",
   "license": "MIT",
   "jest": {
     "setupFiles": [
