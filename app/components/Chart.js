@@ -16,6 +16,7 @@ class CandleStickStockScaleChart extends React.Component {
     takeCandlesPacket = () => {
 
         console.warn('Should take 1000 candles for');
+        console.warn('https://api.bitfinex.com/v2/candles/trade:1D:tBTCUSD/hist?start=1388534400000&end=1420070400000&limit=1000');
 
     };
 
