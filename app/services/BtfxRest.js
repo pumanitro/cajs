@@ -1,5 +1,5 @@
 import axios from 'axios';
-import {dateToTimeStamp} from "./BtfxUtils";
+import {dateToTimeStamp, timeFrameToMS} from "./BtfcUtils/BtfxUtils";
 
 class BtfxRest {
 
@@ -18,7 +18,18 @@ class BtfxRest {
             .catch((err) => {
                 console.warn(err);
             });
+    };
+
+    getMoreCandles = (timeFrame, symbol, lastCandle) => {
+
+        const end = lastCandle.date;
+
+        const start = new Date(end - timeFrameToMS(timeFrame));
+
+        this.getCandles(timeFrame, symbol, start, end);
+
     }
+
 }
 
 export default new BtfxRest();

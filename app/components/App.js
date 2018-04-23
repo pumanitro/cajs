@@ -2,7 +2,7 @@ import {connect} from "react-redux";
 import React from 'react';
 import Chart from './Chart';
 import {BtfxWS} from "../services/BtfxWS";
-import {parseBtfxCandle, parseCandles} from "../services/BtfxUtils";
+import {parseBtfxCandle, parseCandles} from "../services/BtfcUtils/BtfxUtils";
 import {makeAction} from "../utils/actionCreator";
 import ActionTypes from "../actions/actionTypes";
 

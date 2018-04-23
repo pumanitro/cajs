@@ -11,6 +11,7 @@
     "browser": true,
     "node": true,
     "mocha": true,
+    "jest": true,
     "es6": true
   },
   "rules": {
@@ -42,6 +43,7 @@
     "react/jsx-indent-props": ["error", 4],
     "max-len": ["error", 250],
     "react/prop-types": "off",
-    "react/no-string-refs": "off"
+    "react/no-string-refs": "off",
+    "no-throw-literal": "off"
   }
 }
