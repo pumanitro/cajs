@@ -14,6 +14,7 @@ class BtfxRest {
             .get(`${this.REST_URL}candles/trade:${timeFrame}:${symbol}/hist?start=${dateToTimeStamp(dateStart)}&end=${dateToTimeStamp(dateEnd)}&limit=${this.MAX_CANDLES_AMOUNT}`)
             .then((resp) => {
                 console.warn(resp);
+                console.warn(`${this.REST_URL}candles/trade:${timeFrame}:${symbol}/hist?start=${dateToTimeStamp(dateStart)}&end=${dateToTimeStamp(dateEnd)}&limit=${this.MAX_CANDLES_AMOUNT}`);
             })
             .catch((err) => {
                 console.warn(err);
@@ -24,7 +25,7 @@ class BtfxRest {
 
         const end = lastCandle.date;
 
-        const start = new Date(end - timeFrameToMS(timeFrame));
+        const start = new Date(end - (timeFrameToMS(timeFrame) * this.MAX_CANDLES_AMOUNT));
 
         this.getCandles(timeFrame, symbol, start, end);
 

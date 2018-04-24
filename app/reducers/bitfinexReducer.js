@@ -6,7 +6,7 @@ const bitfinex = (state =
         candles: [],
         setup: {
             timeFrame: Consts.timeFrame.h1,
-            symbol: Consts.symbol.BTCUSD
+            symbol: `t${Consts.symbol.BTCUSD}`
 
         }
     }, action) => {

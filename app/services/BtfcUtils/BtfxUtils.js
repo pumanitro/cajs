@@ -37,7 +37,7 @@ export function timeFrameToMS(timeFrame) {
 }
 
 export function dateToTimeStamp(date) {
-    return Math.floor(date / 1000);
+    return Math.floor(date / 1);
 }
 
 export function parseCandles(candles) {

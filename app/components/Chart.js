@@ -17,10 +17,10 @@ class CandleStickStockScaleChart extends React.Component {
 
     takeCandlesPacket = () => {
 
-        BtfxRest.getMoreCandles(this.props.setup.timeFrame, this.props.setup.symbol, this.props.candles[0]);
+        const {setup, candles} = this.props.bitfinex;
 
-        console.warn('Should take 1000 candles for');
-        console.warn('https://api.bitfinex.com/v2/candles/trade:1D:tBTCUSD/hist?start=1388534400000&end=1420070400000&limit=1000');
+        BtfxRest.getMoreCandles(setup.timeFrame, setup.symbol, candles[0]);
+
 
     };
 
@@ -81,7 +81,7 @@ CandleStickStockScaleChart = fitWidth(CandleStickStockScaleChart);
 
 const mapStateToProps = (state) => {
     return {
-        setup: state.bitfinex.setup
+        bitfinex: state.bitfinex
     };
 };
 
