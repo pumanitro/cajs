@@ -10,11 +10,10 @@ class BtfxRest {
 
         // 1388534400000
 
-        axios
+        return axios
             .get(`${this.REST_URL}candles/trade:${timeFrame}:${symbol}/hist?start=${dateToTimeStamp(dateStart)}&end=${dateToTimeStamp(dateEnd)}&limit=${this.MAX_CANDLES_AMOUNT}`)
             .then((resp) => {
-                console.warn(resp);
-                console.warn(`${this.REST_URL}candles/trade:${timeFrame}:${symbol}/hist?start=${dateToTimeStamp(dateStart)}&end=${dateToTimeStamp(dateEnd)}&limit=${this.MAX_CANDLES_AMOUNT}`);
+                return resp.data;
             })
             .catch((err) => {
                 console.warn(err);
@@ -27,7 +26,7 @@ class BtfxRest {
 
         const start = new Date(end - (timeFrameToMS(timeFrame) * this.MAX_CANDLES_AMOUNT));
 
-        this.getCandles(timeFrame, symbol, start, end);
+        return this.getCandles(timeFrame, symbol, start, end);
 
     }
 

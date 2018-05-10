@@ -12,6 +12,8 @@ import { discontinuousTimeScaleProvider } from "react-stockcharts/lib/scale";
 import { fitWidth } from "react-stockcharts/lib/helper";
 import { last } from "react-stockcharts/lib/utils";
 import BtfxRest from "../services/BtfxRest";
+import {makeAction} from "../utils/actionCreator";
+import ActionTypes from "../actions/actionTypes";
 
 class CandleStickStockScaleChart extends React.Component {
 
@@ -19,7 +21,10 @@ class CandleStickStockScaleChart extends React.Component {
 
         const {setup, candles} = this.props.bitfinex;
 
-        BtfxRest.getMoreCandles(setup.timeFrame, setup.symbol, candles[0]);
+        BtfxRest.getMoreCandles(setup.timeFrame, setup.symbol, candles[0])
+            .then((newCandlesPackage) => {
+                this.props.addNewCandlesPackage(newCandlesPackage);
+            });
 
 
     };
@@ -85,16 +90,12 @@ const mapStateToProps = (state) => {
     };
 };
 
-// const mapDispatchToProps = (dispatch) => {
-//     return {
-//         destroyTodo : () => dispatch({
-//             type : 'DESTROY_TODO'
-//         })
-//     };
-// };
+const mapDispatchToProps = {
+    addNewCandlesPackage: makeAction(ActionTypes.BITFINEX.ADD_NEW_CANDLES_PACKAGE)
+};
 
 export default connect(
     mapStateToProps,
-    null
+    mapDispatchToProps
 )(CandleStickStockScaleChart);
 
