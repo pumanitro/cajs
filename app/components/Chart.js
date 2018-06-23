@@ -26,7 +26,6 @@ class CandleStickStockScaleChart extends React.Component {
                 this.props.addNewCandlesPackage(newCandlesPackage);
             });
 
-
     };
 
     render() {
